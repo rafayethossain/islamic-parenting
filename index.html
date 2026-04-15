@@ -6,10 +6,21 @@
     <title>Raising Children of Jannah | জান্নাতের সন্তান গড়ে তোলা</title>
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#2E5A47">
-    <link rel="apple-touch-icon" href="/en/assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="./en/assets/icons/icon-192.png">
     <script>
-        // Default to Bengali
-        window.location.href = "./bn/index.html";
+        // Check for saved preference
+        let savedLang = localStorage.getItem('preferredLang');
+        if (!savedLang) {
+            // Default to Bengali and save it
+            savedLang = 'bn';
+            localStorage.setItem('preferredLang', 'bn');
+        }
+        
+        if (savedLang === 'en') {
+            window.location.href = "./en/index.html";
+        } else {
+            window.location.href = "./bn/index.html";
+        }
     </script>
 </head>
 <body>
