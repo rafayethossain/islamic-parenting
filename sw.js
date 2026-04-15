@@ -1,14 +1,16 @@
-const CACHE_NAME = 'jannah-toolkit-v1';
+const CACHE_NAME = 'jannah-toolkit-v2';
+const REPO = '/islamic-parenting'; 
+
 const ASSETS = [
-    './',
-    './index.html',
-    './manifest.webmanifest',
-    './en/index.html',
-    './bn/index.html',
-    './en/assets/css/style.css',
-    './bn/assets/css/style.css',
-    './en/assets/js/main.js',
-    './bn/assets/js/main.js'
+    `${REPO}/`,
+    `${REPO}/index.html`,
+    `${REPO}/manifest.webmanifest`,
+    `${REPO}/en/index.html`,
+    `${REPO}/bn/index.html`,
+    `${REPO}/en/assets/css/style.css`,
+    `${REPO}/bn/assets/css/style.css`,
+    `${REPO}/en/assets/js/main.js`,
+    `${REPO}/bn/assets/js/main.js`
 ];
 
 // Pre-cache all chapters
@@ -20,14 +22,21 @@ const chapters = [
 ];
 
 chapters.forEach(ch => {
-    ASSETS.push(`./en/chapters/${ch}`);
-    ASSETS.push(`./bn/chapters/${ch}`);
+    ASSETS.push(`${REPO}/en/chapters/${ch}`);
+    ASSETS.push(`${REPO}/bn/chapters/${ch}`);
 });
 
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(ASSETS))
+            .then(cache => {
+                // Return a Promise that resolves even if some assets fail to cache
+                return Promise.all(
+                    ASSETS.map(url => {
+                        return cache.add(url).catch(err => console.warn('Failed to cache:', url));
+                    })
+                );
+            })
     );
 });
 
