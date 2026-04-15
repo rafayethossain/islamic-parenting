@@ -1,0 +1,21 @@
+{
+  "name": "Raising Children of Jannah",
+  "short_name": "Jannah Children",
+  "description": "A Prophetic Blueprint for Character, Discipline, and Digital Resilience",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FCFBF7",
+  "theme_color": "#2E5A47",
+  "icons": [
+    {
+      "src": "en/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "en/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
