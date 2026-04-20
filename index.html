@@ -1,30 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raising Children of Jannah | জান্নাতের সন্তান গড়ে তোলা</title>
-    <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#2E5A47">
-    <link rel="apple-touch-icon" href="./en/assets/icons/icon-192.png">
+    <title>জান্নাতের সন্তান | Raising Children of Jannah</title>
     <script>
-        // Check for saved preference
-        let savedLang = localStorage.getItem('preferredLang');
-        if (!savedLang) {
-            // Default to Bengali and save it
-            savedLang = 'bn';
-            localStorage.setItem('preferredLang', 'bn');
-        }
-        
+        // Check for saved language preference or default to Bengali
+        const savedLang = localStorage.getItem('preferredLanguage');
         if (savedLang === 'en') {
-            window.location.href = "./en/index.html";
+            window.location.href = 'en/index.html';
         } else {
-            window.location.href = "./bn/index.html";
+            // Default to Bengali or follow saved preference
+            window.location.href = 'bn/index.html';
         }
     </script>
 </head>
-<body>
-    <p>Redirecting... / রিডাইরেক্ট করা হচ্ছে...</p>
-    <p><a href="./en/index.html">English Version</a> | <a href="./bn/index.html">বাংলা সংস্করণ</a></p>
+<body style="background: #FCFBF7; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; color: #2E5A47;">
+    <p>Loading toolkit / লোড হচ্ছে...</p>
 </body>
 </html>

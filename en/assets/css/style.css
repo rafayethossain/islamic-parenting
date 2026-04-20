@@ -470,3 +470,64 @@ body.dark-mode .lang-switch a:hover {
         text-align: center;
     }
 }
+
+/* Module Hub Cards */
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.module-card {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border-color: var(--accent-green);
+}
+
+.module-card h3 {
+    margin-top: 0;
+    color: var(--accent-green);
+    font-size: 1.5rem;
+}
+
+.module-card p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.module-card .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--accent-gold);
+}
+
+.module-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.module-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-color);
+}

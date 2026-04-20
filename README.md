@@ -1,45 +1,53 @@
-# Raising Children of Jannah | জান্নাতের সন্তান গড়ে তোলা
+# Raising Children of Jannah | জান্নাতের সন্তান গড়ে তোলা
 
-A digital toolkit and PWA (Progressive Web App) providing a Prophetic blueprint for character, discipline, and digital resilience in parenting.
+A comprehensive Islamic Parenting Platform and PWA (Progressive Web App) providing a Prophetic blueprint for character development, prayer training, and digital resilience.
 
-## Features
+## 🌟 Modules
 
-- **Multi-language Support**: Full content available in both English (`en/`) and Bengali (`bn/`).
-- **PWA Ready**: Can be installed on any device for offline reading.
-- **Dark Mode**: Eye-friendly reading experience for night-time parenting.
-- **Reading Progress**: Automatically tracks and displays reading progress across chapters.
-- **Smart Redirection**: Remembers your preferred language and defaults to Bengali for first-time visitors.
-- **Print Friendly**: Optimized CSS for printing chapters.
+The platform is designed as a modular hub, currently featuring:
 
-## Project Structure
+1.  **Parenting Blueprint**: An 8-pillar guide to nurturing honest and resilient children using Prophetic psychology.
+2.  **Prayer Training (Salat)**: A child-centric, 8-module toolkit designed to help 7-10 year olds build a loving connection with Allah through Salat.
+3.  **Future Modules**: Expandable architecture to support upcoming toolkits like *Fasting & Siyam*.
+
+## ✨ Features
+
+-   **Multi-Module Platform**: A card-based "Main Hub" for selecting different toolkits.
+-   **Dual Language Support**: Full content available in English (`en/`) and Bengali (`bn/`).
+-   **PWA Ready**: Offline-first experience; installable on mobile and desktop.
+-   **Child-Centric UI**: Interactive Tajwid guides, "Fun Facts" for kids, and "Pro-Tips" for parents.
+-   **Smart Redirection**: Remembers language preferences and defaults to Bengali for first-time visitors.
+-   **Dark Mode**: Eye-friendly reading with specialized themes for each module.
+
+## 📂 Project Structure
 
 ```text
-├── index.html          # Main entry (Language Redirector)
-├── manifest.webmanifest # PWA Configuration
-├── sw.js               # Service Worker (Offline Caching)
-├── bn/                 # Bengali Version
-│   ├── index.html      # Bengali Introduction
-│   ├── assets/         # Bengali-specific assets (CSS, JS, Icons)
-│   └── chapters/       # Bengali Chapter files
-└── en/                 # English Version
-    ├── index.html      # English Introduction
-    ├── assets/         # English-specific assets (CSS, JS, Icons)
-    └── chapters/       # English Chapter files
+├── index.html              # Language Redirector
+├── manifest.webmanifest    # PWA Configuration
+├── sw.js                   # Service Worker (Offline Caching v5)
+├── bn/                     # Bengali Module Hub
+│   ├── index.html          # Hub Page (Cards)
+│   ├── parenting/          # Parenting Blueprint Module
+│   └── salat/              # Salat Training Toolkit Module
+├── en/                     # English Module Hub
+│   ├── index.html          # Hub Page (Cards)
+│   ├── parenting/          # Parenting Blueprint Module
+│   └── salat/              # Salat Training Toolkit Module
+└── assets/                 # Shared Assets (CSS, JS, Icons)
 ```
 
-## How to Maintain
+## 🛠️ Maintenance
 
-### Adding a New Chapter
-1.  Create a new HTML file in both `bn/chapters/` and `en/chapters/`.
-2.  Follow the template from `chapter-01.html`.
-3.  Add the new file to the sidebar navigation in ALL HTML files.
-4.  Update the `sw.js` `chapters` array to include the new filename for offline caching.
-5.  Update the `sitemap.xml` with the new URLs.
+### Adding a New Module (e.g., Siyam)
+1.  Create `en/siyam/` and `bn/siyam/` directories.
+2.  Add a new Card link to the Hub pages (`en/index.html` and `bn/index.html`).
+3.  Update the `sw.js` with the new file paths for offline caching.
+4.  Follow the established HTML template (Sidebar + Main Content) for consistency.
 
 ### Updating the Service Worker
-When you make changes to CSS or JS, increment the `CACHE_NAME` version in `sw.js` (e.g., `v3` to `v4`) to force an update for all users.
+When making changes to CSS, JS, or adding new pages, increment the `CACHE_NAME` version in `sw.js` (e.g., `v5` to `v6`) to force an update for all users.
 
-## Deployment
+## 🚀 Deployment
 Hosted on GitHub Pages at [https://rafayethossain.github.io/islamic-parenting](https://rafayethossain.github.io/islamic-parenting).
 
 ---
