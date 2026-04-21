@@ -3,28 +3,57 @@
   <url><loc>https://rafayethossain.github.io/islamic-parenting/index.html</loc><priority>1.0</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/en/index.html</loc><priority>0.9</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/index.html</loc><priority>0.9</priority></url>
-  <!-- En Chapters -->
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-01.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-02.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-03.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-04.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-05.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-06.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-07.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/chapter-08.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/toolkit.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/troubleshooting.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/chapters/conclusion.html</loc><priority>0.8</priority></url>
-  <!-- Bn Chapters -->
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-01.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-02.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-03.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-04.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-05.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-06.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-07.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/chapter-08.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/toolkit.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/troubleshooting.html</loc><priority>0.8</priority></url>
-  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/chapters/conclusion.html</loc><priority>0.8</priority></url>
+
+  <!-- ENGLISH MODULES -->
+  <!-- Parenting Blueprint (En) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/chapter-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/toolkit.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/troubleshooting.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/parenting/conclusion.html</loc><priority>0.7</priority></url>
+
+  <!-- Salat Toolkit (En) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-08.html</loc><priority>0.7</priority></url>
+
+  <!-- BENGALI MODULES -->
+  <!-- Parenting Blueprint (Bn) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/chapter-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/toolkit.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/troubleshooting.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/parenting/conclusion.html</loc><priority>0.7</priority></url>
+
+  <!-- Salat Toolkit (Bn) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-09.html</loc><priority>0.7</priority></url>
 </urlset>
