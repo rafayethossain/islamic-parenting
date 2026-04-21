@@ -48,9 +48,12 @@ The platform is designed as a modular hub, currently featuring:
 To ensure users receive the latest content updates, follow these steps after making changes:
 
 1.  **Run the Update Script**:
+    Open your terminal in the root directory and run this exact command:
     ```powershell
-    ./update-version.ps1
+    powershell -ExecutionPolicy Bypass -File ./update-version.ps1
     ```
+    *Note: If you just type the filename, Windows might open it in Notepad instead of running it.*
+    
     This script automatically:
     - Increments the version in `version.json`.
     - Updates the `last_updated` timestamp.

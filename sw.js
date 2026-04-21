@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jannah-toolkit-v6';
+const CACHE_NAME = 'jannah-toolkit-v9';
 
 const ASSETS = [
     './',
