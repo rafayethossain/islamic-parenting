@@ -106,11 +106,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            const swPath = window.location.pathname.includes('/chapters/') ? '../../sw.js' : '../sw.js';
+            // Correct path resolution for sw.js and version.json
+            const depth = window.location.pathname.split('/').filter(p => p).length;
+            let prefix = './';
+            if (window.location.pathname.includes('/en/') || window.location.pathname.includes('/bn/')) {
+                // If we are inside en/ or bn/
+                const parts = window.location.pathname.split('/');
+                const langIndex = parts.findIndex(p => p === 'en' || p === 'bn');
+                const stepsBack = parts.length - langIndex - 1;
+                prefix = '../'.repeat(stepsBack);
+            }
+            
+            const swPath = prefix + 'sw.js';
+            const versionPath = prefix + 'version.json';
+
             navigator.serviceWorker.register(swPath)
                 .then(reg => {
                     console.log('SW Registered');
                     
+                    // Check for updates on load
+                    checkForUpdates(reg, versionPath);
+
+                    // Check for updates every 1 hour
+                    setInterval(() => {
+                        reg.update();
+                        checkForUpdates(reg, versionPath);
+                    }, 3600000);
+
+                    // Check for updates when coming back online
+                    window.addEventListener('online', () => {
+                        console.log('Online restored. Checking for updates...');
+                        reg.update();
+                        checkForUpdates(reg, versionPath);
+                    });
+
                     reg.addEventListener('updatefound', () => {
                         const newWorker = reg.installing;
                         newWorker.addEventListener('statechange', () => {
@@ -120,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     });
                 })
-                .catch(err => console.log('SW Fail'));
+                .catch(err => console.log('SW Fail', err));
         });
 
         let refreshing;
@@ -129,6 +158,26 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.reload();
             refreshing = true;
         });
+    }
+
+    async function checkForUpdates(reg, versionPath) {
+        try {
+            const response = await fetch(`${versionPath}?v=${new Date().getTime()}`, { cache: 'no-store' });
+            const remoteVersion = await response.json();
+            const localVersion = localStorage.getItem('app_version');
+
+            if (localVersion && remoteVersion.version !== localVersion) {
+                console.log('New version detected:', remoteVersion.version);
+                reg.update();
+            }
+            
+            // Store current version if not set
+            if (!localVersion) {
+                localStorage.setItem('app_version', remoteVersion.version);
+            }
+        } catch (err) {
+            console.warn('Version check failed', err);
+        }
     }
 
     function showUpdateNotification() {

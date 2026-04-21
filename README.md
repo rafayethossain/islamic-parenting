@@ -44,8 +44,26 @@ The platform is designed as a modular hub, currently featuring:
 3.  Update the `sw.js` with the new file paths for offline caching.
 4.  Follow the established HTML template (Sidebar + Main Content) for consistency.
 
-### Updating the Service Worker
-When making changes to CSS, JS, or adding new pages, increment the `CACHE_NAME` version in `sw.js` (e.g., `v5` to `v6`) to force an update for all users.
+### Triggering Content Synchronization
+To ensure users receive the latest content updates, follow these steps after making changes:
+
+1.  **Run the Update Script**:
+    ```powershell
+    ./update-version.ps1
+    ```
+    This script automatically:
+    - Increments the version in `version.json`.
+    - Updates the `last_updated` timestamp.
+    - Increments the `CACHE_NAME` in `sw.js`.
+2.  **Commit and Push**:
+    Commit the changes to `version.json`, `sw.js`, and your content files, then push to GitHub.
+3.  **Automatic Detection**:
+    The PWA will detect the new version (either on page load, via the 1-hour poll, or when coming back online) and prompt the user with a "Refresh Now" notification.
+
+### Technical Implementation Details
+- **Stale-While-Revalidate**: Assets are served from cache immediately while being updated in the background.
+- **version.json**: Acts as the remote source of truth; specifically excluded from Service Worker caching.
+- **Immediate Activation**: New Service Workers take control immediately upon installation using `skipWaiting` and `clients.claim`.
 
 ## 🚀 Deployment
 Hosted on GitHub Pages at [https://rafayethossain.github.io/islamic-parenting](https://rafayethossain.github.io/islamic-parenting).

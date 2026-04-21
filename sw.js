@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jannah-toolkit-v5';
+const CACHE_NAME = 'jannah-toolkit-v6';
 
 const ASSETS = [
     './',
@@ -44,6 +44,7 @@ salatModules.forEach(mod => {
 });
 
 self.addEventListener('install', event => {
+    self.skipWaiting(); // Force the waiting service worker to become the active service worker
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
@@ -57,21 +58,49 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+    // Skip cross-origin requests
+    if (!event.request.url.startsWith(self.location.origin)) return;
+
+    // EXCLUDE version.json from cache - always Network First
+    if (event.request.url.includes('version.json')) {
+        event.respondWith(
+            fetch(event.request).catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
+    // Stale-While-Revalidate Strategy for other assets
     event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
+        caches.open(CACHE_NAME).then(cache => {
+            return cache.match(event.request).then(cachedResponse => {
+                const fetchedResponse = fetch(event.request).then(networkResponse => {
+                    cache.put(event.request, networkResponse.clone());
+                    return networkResponse;
+                }).catch(() => {
+                    // Fallback to cache if network fails
+                    return cachedResponse;
+                });
+
+                return cachedResponse || fetchedResponse;
+            });
+        })
     );
 });
 
-// Activate event to clean up old caches
+// Activate event to clean up old caches and take control
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.filter(name => name !== CACHE_NAME)
-                    .map(name => caches.delete(name))
-            );
-        })
+        Promise.all([
+            // Clean up old caches
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.filter(name => name !== CACHE_NAME)
+                        .map(name => caches.delete(name))
+                );
+            }),
+            // Take control of all clients immediately
+            self.clients.claim()
+        ])
     );
 });
 
