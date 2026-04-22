@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jannah-toolkit-v12';
+const CACHE_NAME = 'jannah-toolkit-v15';
 
 const ASSETS = [
     './',
@@ -35,12 +35,24 @@ parentingChapters.forEach(ch => {
 const salatModules = [
     'module-01.html', 'module-02.html', 'module-03.html', 
     'module-04.html', 'module-05.html', 'module-06.html', 
-    'module-07.html', 'module-08.html'
+    'module-07.html', 'module-08.html', 'module-09.html', 'module-10.html'
 ];
 
 salatModules.forEach(mod => {
     ASSETS.push(`./en/salat/${mod}`);
     ASSETS.push(`./bn/salat/${mod}`);
+});
+
+// Siyam modules
+const siyamModules = [
+    'index.html', 'module-01.html', 'module-02.html', 'module-03.html', 
+    'module-04.html', 'module-05.html', 'module-06.html', 
+    'module-07.html', 'module-08.html', 'module-09.html', 'tracker.html'
+];
+
+siyamModules.forEach(mod => {
+    ASSETS.push(`./en/siyam/${mod}`);
+    ASSETS.push(`./bn/siyam/${mod}`);
 });
 
 self.addEventListener('install', event => {

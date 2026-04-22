@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Tracker | Siyam for Little Hearts</title>
+    <meta name="description" content="30-day Ramadan worship tracker for kids.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .tracker-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        .tracker-table th, .tracker-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: center;
+        }
+        .tracker-table th {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+        }
+        .phase-rahmah { background-color: rgba(46, 90, 71, 0.1); }
+        .phase-maghfirah { background-color: rgba(52, 152, 219, 0.1); }
+        .phase-najah { background-color: rgba(241, 196, 15, 0.1); }
+        
+        .check-group {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+        }
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .reward-row {
+            font-weight: bold;
+            background-color: var(--card-bg);
+        }
+        .save-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .save-btn:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <div class="container">
+        <!-- Persistent Sidebar -->
+        <aside class="sidebar">
+            <h2>Siyam for Little Hearts</h2>
+            <div class="lang-switch"><a href="../../bn/siyam/tracker.html">বাংলা</a></div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../../en/index.html">🏠 Back to Main Hub</a></li>
+                    <li><a href="index.html">Introduction</a></li>
+                    <li><a href="module-01.html">Module 1: Ahlan wa Sahlan</a></li>
+                    <li><a href="module-02.html">Module 2: Why We Fast</a></li>
+                    <li><a href="module-03.html">Module 3: Suhoor & Intention</a></li>
+                    <li><a href="module-04.html">Module 4: Joy of Iftar</a></li>
+                    <li><a href="module-05.html">Module 5: Manners & Sabr</a></li>
+                    <li><a href="module-06.html">Module 6: Ramadan Deeds</a></li>
+                    <li><a href="module-07.html">Module 7: Qadr & Eid</a></li>
+                    <li><a href="module-08.html">Module 8: Parent Guide</a></li>
+                    <li><a href="tracker.html" class="active">Ramadan Tracker</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="reading-column">
+                <header>
+                    <p style="text-transform: uppercase; font-family: var(--font-ui); font-size: 0.85rem; letter-spacing: 2px; color: var(--accent-gold); font-weight: 600;">Activity</p>
+                    <h1>My 30-Day Ramadan Tracker</h1>
+                    <p class="subtitle" style="font-size: 1.4rem; margin-top: -1rem; color: var(--text-color); font-style: italic;">A Map of Your Daily Worship & Good Deeds</p>
+                </header>
+
+                <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <section id="how-to-use">
+                    <p>Dear Little Mu'min! You will get one star for every deed. Your progress will be saved in this browser.</p>
+                    <ul>
+                        <li><strong>Fasting:</strong> Check if you fasted.</li>
+                        <li><strong>Prayers:</strong> 5 boxes for the 5 daily prayers.</li>
+                        <li><strong>Good Deed:</strong> Do at least one kind act.</li>
+                        <li><strong>Quran:</strong> Check if you read Quran or Qaida.</li>
+                    </ul>
+                </section>
+
+                <div class="tracker-container">
+                    <table class="tracker-table" id="ramadan-tracker">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Fast</th>
+                                <th>Prayers (5)</th>
+                                <th>Deed</th>
+                                <th>Quran</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tracker-body">
+                            <!-- Rows will be generated by JS -->
+                        </tbody>
+                    </table>
+                    <button class="save-btn" onclick="saveTracker()">Save Progress</button>
+                    <p id="save-status" style="text-align: center; margin-top: 10px; color: var(--primary-color); font-weight: 600;"></p>
+                </div>
+
+                <div class="nav-footer">
+                    <a href="module-08.html" class="btn">← Module 8</a>
+                    <a href="../../en/index.html" class="btn">Main Hub →</a>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <button class="theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">🌓</button>
+
+    <script>
+        const days = 30;
+        const tbody = document.getElementById('tracker-body');
+
+        function generateTracker() {
+            let html = '';
+            for (let i = 1; i <= days; i++) {
+                let phaseClass = '';
+                if (i <= 10) phaseClass = 'phase-rahmah';
+                else if (i <= 20) phaseClass = 'phase-maghfirah';
+                else phaseClass = 'phase-najah';
+
+                html += `<tr class="${phaseClass}">
+                    <td>${i}</td>
+                    <td><input type="checkbox" id="fast-${i}"></td>
+                    <td>
+                        <div class="check-group">
+                            <input type="checkbox" id="p1-${i}">
+                            <input type="checkbox" id="p2-${i}">
+                            <input type="checkbox" id="p3-${i}">
+                            <input type="checkbox" id="p4-${i}">
+                            <input type="checkbox" id="p5-${i}">
+                        </div>
+                    </td>
+                    <td><input type="checkbox" id="deed-${i}"></td>
+                    <td><input type="checkbox" id="quran-${i}"></td>
+                </tr>`;
+
+                if (i === 10) html += `<tr class="reward-row"><td colspan="5">🎁 10 Days of Rahmah finished! Get a small gift.</td></tr>`;
+                if (i === 20) html += `<tr class="reward-row"><td colspan="5">🎁 10 Days of Maghfirah finished! A special reward.</td></tr>`;
+                if (i === 30) html += `<tr class="reward-row"><td colspan="5">🎆 Alhamdulillah! Eid Mubarak!</td></tr>`;
+            }
+            tbody.innerHTML = html;
+            loadTracker();
+        }
+
+        function saveTracker() {
+            const data = {};
+            for (let i = 1; i <= days; i++) {
+                data[`fast-${i}`] = document.getElementById(`fast-${i}`).checked;
+                data[`p1-${i}`] = document.getElementById(`p1-${i}`).checked;
+                data[`p2-${i}`] = document.getElementById(`p2-${i}`).checked;
+                data[`p3-${i}`] = document.getElementById(`p3-${i}`).checked;
+                data[`p4-${i}`] = document.getElementById(`p4-${i}`).checked;
+                data[`p5-${i}`] = document.getElementById(`p5-${i}`).checked;
+                data[`deed-${i}`] = document.getElementById(`deed-${i}`).checked;
+                data[`quran-${i}`] = document.getElementById(`quran-${i}`).checked;
+            }
+            localStorage.setItem('siyamTrackerDataEn', JSON.stringify(data));
+            const status = document.getElementById('save-status');
+            status.innerText = 'Progress Saved Successfully!';
+            setTimeout(() => { status.innerText = ''; }, 3000);
+        }
+
+        function loadTracker() {
+            const savedData = localStorage.getItem('siyamTrackerDataEn');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                for (let i = 1; i <= days; i++) {
+                    if (document.getElementById(`fast-${i}`)) document.getElementById(`fast-${i}`).checked = data[`fast-${i}`] || false;
+                    if (document.getElementById(`p1-${i}`)) document.getElementById(`p1-${i}`).checked = data[`p1-${i}`] || false;
+                    if (document.getElementById(`p2-${i}`)) document.getElementById(`p2-${i}`).checked = data[`p2-${i}`] || false;
+                    if (document.getElementById(`p3-${i}`)) document.getElementById(`p3-${i}`).checked = data[`p3-${i}`] || false;
+                    if (document.getElementById(`p4-${i}`)) document.getElementById(`p4-${i}`).checked = data[`p4-${i}`] || false;
+                    if (document.getElementById(`p5-${i}`)) document.getElementById(`p5-${i}`).checked = data[`p5-${i}`] || false;
+                    if (document.getElementById(`deed-${i}`)) document.getElementById(`deed-${i}`).checked = data[`deed-${i}`] || false;
+                    if (document.getElementById(`quran-${i}`)) document.getElementById(`quran-${i}`).checked = data[`quran-${i}`] || false;
+                }
+            }
+        }
+
+        generateTracker();
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
+
