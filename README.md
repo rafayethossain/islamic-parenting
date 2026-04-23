@@ -7,8 +7,8 @@ A comprehensive Islamic Parenting Platform and PWA (Progressive Web App) providi
 The platform is designed as a modular hub, currently featuring:
 
 1.  **Parenting Blueprint**: An 8-pillar guide to nurturing honest and resilient children using Prophetic psychology.
-2.  **Prayer Training (Salat)**: A child-centric, 8-module toolkit designed to help 7-10 year olds build a loving connection with Allah through Salat.
-3.  **Future Modules**: Expandable architecture to support upcoming toolkits like *Fasting & Siyam*.
+2.  **Prayer Training (Salat)**: A child-centric toolkit designed to help 7-10 year olds build a loving connection with Allah through Salat.
+3.  **Fasting & Siyam**: A comprehensive 10-module guide for children and parents to experience the spiritual beauty of Ramadan, including interactive trackers and quick-action toolkits.
 
 ## ✨ Features
 
@@ -17,23 +17,28 @@ The platform is designed as a modular hub, currently featuring:
 -   **PWA Ready**: Offline-first experience; installable on mobile and desktop.
 -   **Child-Centric UI**: Interactive Tajwid guides, "Fun Facts" for kids, and "Pro-Tips" for parents.
 -   **Smart Redirection**: Remembers language preferences and defaults to Bengali for first-time visitors.
--   **Dark Mode**: Eye-friendly reading with specialized themes for each module.
+-   **Dark Mode**: Eye-friendly reading with specialized themes for each module (Emerald for Siyam, Navy for Salat).
 
 ## 📂 Project Structure
 
 ```text
 ├── index.html              # Language Redirector
 ├── manifest.webmanifest    # PWA Configuration
-├── sw.js                   # Service Worker (Offline Caching v5)
+├── sw.js                   # Service Worker (Offline Caching)
+├── sitemap.xml             # Search Engine Optimization
 ├── bn/                     # Bengali Module Hub
 │   ├── index.html          # Hub Page (Cards)
+│   ├── assets/             # Bengali-specific assets (CSS, JS, Icons)
 │   ├── parenting/          # Parenting Blueprint Module
-│   └── salat/              # Salat Training Toolkit Module
+│   ├── salat/              # Salat Training Toolkit Module
+│   └── siyam/              # Siyam & Ramadan Module
 ├── en/                     # English Module Hub
 │   ├── index.html          # Hub Page (Cards)
+│   ├── assets/             # English-specific assets (CSS, JS, Icons)
 │   ├── parenting/          # Parenting Blueprint Module
-│   └── salat/              # Salat Training Toolkit Module
-└── assets/                 # Shared Assets (CSS, JS, Icons)
+│   ├── salat/              # Salat Training Toolkit Module
+│   └── siyam/              # Siyam & Ramadan Module
+└── version.json            # PWA Version Tracking
 ```
 
 ## 🛠️ Maintenance
@@ -42,7 +47,8 @@ The platform is designed as a modular hub, currently featuring:
 1.  Create `en/siyam/` and `bn/siyam/` directories.
 2.  Add a new Card link to the Hub pages (`en/index.html` and `bn/index.html`).
 3.  Update the `sw.js` with the new file paths for offline caching.
-4.  Follow the established HTML template (Sidebar + Main Content) for consistency.
+4.  Update the `sitemap.xml` with the new module URLs.
+5.  Follow the established HTML template (Sidebar + Main Content) for consistency.
 
 ### Triggering Content Synchronization
 To ensure users receive the latest content updates, follow these steps after making changes:

@@ -29,6 +29,21 @@
   <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-06.html</loc><priority>0.7</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-07.html</loc><priority>0.7</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/salat/module-09.html</loc><priority>0.7</priority></url>
+
+  <!-- Siyam Module (En) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/module-09.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/quick-toolkit.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/en/siyam/tracker.html</loc><priority>0.7</priority></url>
 
   <!-- BENGALI MODULES -->
   <!-- Parenting Blueprint (Bn) -->
@@ -56,4 +71,20 @@
   <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-07.html</loc><priority>0.7</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-08.html</loc><priority>0.7</priority></url>
   <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-09.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/salat/module-10.html</loc><priority>0.7</priority></url>
+
+  <!-- Siyam Module (Bn) -->
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/index.html</loc><priority>0.8</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-01.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-02.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-03.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-04.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-05.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-06.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-07.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-08.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-09.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/module-10.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/quick-toolkit.html</loc><priority>0.7</priority></url>
+  <url><loc>https://rafayethossain.github.io/islamic-parenting/bn/siyam/tracker.html</loc><priority>0.7</priority></url>
 </urlset>

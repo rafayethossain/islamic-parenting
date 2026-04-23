@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jannah-toolkit-v15';
+const CACHE_NAME = 'jannah-toolkit-v18';
 
 const ASSETS = [
     './',
@@ -10,10 +10,16 @@ const ASSETS = [
     './bn/parenting/index.html',
     './en/salat/index.html',
     './bn/salat/index.html',
+    './en/siyam/index.html',
+    './bn/siyam/index.html',
     './en/assets/css/style.css',
     './bn/assets/css/style.css',
     './en/assets/js/main.js',
     './bn/assets/js/main.js',
+    './en/assets/icons/icon-192.png',
+    './en/assets/icons/icon-512.png',
+    './bn/assets/icons/icon-192.png',
+    './bn/assets/icons/icon-512.png',
     'https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Playfair+Display:wght@700&family=Merriweather:ital,wght@0,400;1,400&display=swap',
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap'
 ];
@@ -45,9 +51,10 @@ salatModules.forEach(mod => {
 
 // Siyam modules
 const siyamModules = [
-    'index.html', 'module-01.html', 'module-02.html', 'module-03.html', 
+    'module-01.html', 'module-02.html', 'module-03.html', 
     'module-04.html', 'module-05.html', 'module-06.html', 
-    'module-07.html', 'module-08.html', 'module-09.html', 'tracker.html'
+    'module-07.html', 'module-08.html', 'module-09.html', 'module-10.html',
+    'quick-toolkit.html', 'tracker.html'
 ];
 
 siyamModules.forEach(mod => {
@@ -97,27 +104,4 @@ self.addEventListener('fetch', event => {
             });
         })
     );
-});
-
-// Activate event to clean up old caches and take control
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        Promise.all([
-            // Clean up old caches
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.filter(name => name !== CACHE_NAME)
-                        .map(name => caches.delete(name))
-                );
-            }),
-            // Take control of all clients immediately
-            self.clients.claim()
-        ])
-    );
-});
-
-self.addEventListener('message', event => {
-    if (event.data === 'skipWaiting') {
-        self.skipWaiting();
-    }
 });
