@@ -1,5 +1,392 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- Phase 1: Interactive Foundation ---
+    
+    const ProgressManager = {
+        totalSteps: 28, // 8 Parenting + 10 Salat + 10 Siyam
+        
+        init() {
+            if (!localStorage.getItem('user_progress')) {
+                localStorage.setItem('user_progress', JSON.stringify({
+                    completed: [],
+                    milestones: []
+                }));
+            }
+            this.renderMilestoneRing();
+            this.trackCompletion();
+            this.checkAndAwardInitial();
+        },
+
+        save(id) {
+            let progress = JSON.parse(localStorage.getItem('user_progress'));
+            if (!progress.completed.includes(id)) {
+                progress.completed.push(id);
+                localStorage.setItem('user_progress', JSON.stringify(progress));
+                this.renderMilestoneRing();
+                this.checkMilestones(progress);
+                this.showCompletionToast(id);
+            }
+        },
+
+        renderMilestoneRing() {
+            const sidebar = document.querySelector('.sidebar');
+            if (!sidebar) return;
+
+            let progress = JSON.parse(localStorage.getItem('user_progress'));
+            const percent = Math.round((progress.completed.length / this.totalSteps) * 100);
+            
+            let ringContainer = document.querySelector('.milestone-container');
+            if (!ringContainer) {
+                ringContainer = document.createElement('div');
+                ringContainer.className = 'milestone-container';
+                sidebar.prepend(ringContainer);
+            }
+
+            const radius = 36;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (percent / 100) * circumference;
+
+            ringContainer.innerHTML = `
+                <div class="progress-ring-wrapper">
+                    <svg class="progress-ring" width="80" height="80">
+                        <circle class="progress-ring__background" stroke-width="4" fill="transparent" r="${radius}" cx="40" cy="40"/>
+                        <circle class="progress-ring__circle" stroke-width="4" stroke-dasharray="${circumference} ${circumference}" style="stroke-dashoffset: ${offset}" fill="transparent" r="${radius}" cx="40" cy="40"/>
+                    </svg>
+                    <div class="progress-text">${percent}%</div>
+                </div>
+                <div class="milestone-label">নূর মাইলস্টোন</div>
+            `;
+        },
+
+        trackCompletion() {
+            // Auto-track based on URL
+            const path = window.location.pathname;
+            let id = "";
+            if (path.includes('chapter-')) id = "parenting-" + path.split('chapter-')[1].split('.html')[0];
+            if (path.includes('module-')) {
+                const modType = path.includes('salat') ? 'salat' : 'siyam';
+                id = modType + "-" + path.split('module-')[1].split('.html')[0];
+            }
+
+            if (id) {
+                // If user scrolls to bottom, mark as complete
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        this.save(id);
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+
+                const footer = document.querySelector('.nav-footer');
+                if (footer) observer.observe(footer);
+            }
+        },
+
+        checkMilestones(progress) {
+            const milestones = [
+                { id: 'sidq', name: 'সত্যবাদী (Sidq)', condition: () => progress.completed.includes('parenting-01') },
+                { id: 'salat-guard', name: 'সালাতের অভিভাবক', condition: () => progress.completed.includes('salat-04') },
+                { id: 'crescent', name: 'ক্রিসেন্ট ক্লাইম্বার', condition: () => progress.completed.includes('siyam-02') }
+            ];
+
+            milestones.forEach(m => {
+                if (m.condition() && !progress.milestones.includes(m.id)) {
+                    progress.milestones.push(m.id);
+                    localStorage.setItem('user_progress', JSON.stringify(progress));
+                    this.showMilestoneBadge(m.name);
+                }
+            });
+        },
+
+        showMilestoneBadge(name) {
+            const badge = document.createElement('div');
+            badge.className = 'update-toast'; // Reusing style for now
+            badge.style.background = 'var(--accent-gold)';
+            badge.innerHTML = `<span>🏅 মাইলস্টোন অর্জিত: <strong>${name}</strong></span>`;
+            document.body.appendChild(badge);
+            setTimeout(() => badge.remove(), 5000);
+            
+            if (window.navigator.vibrate) window.navigator.vibrate([100, 50, 100]);
+        },
+
+        showCompletionToast(id) {
+            console.log("Completed:", id);
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+        },
+
+        checkAndAwardInitial() {
+            // Check milestones on page load
+            const progress = JSON.parse(localStorage.getItem('user_progress'));
+            this.checkMilestones(progress);
+        }
+    };
+
+    const SwipeNavigator = {
+        startX: 0,
+        endX: 0,
+        
+        init() {
+            document.addEventListener('touchstart', (e) => this.startX = e.touches[0].clientX);
+            document.addEventListener('touchend', (e) => {
+                this.endX = e.changedTouches[0].clientX;
+                this.handleSwipe();
+            });
+        },
+
+        handleSwipe() {
+            const diff = this.startX - this.endX;
+            const threshold = 100;
+            const footer = document.querySelector('.nav-footer');
+            if (!footer) return;
+
+            const nextBtn = footer.querySelector('a:last-child');
+            const prevBtn = footer.querySelector('a:first-child');
+
+            if (diff > threshold && nextBtn && nextBtn.innerText.includes('→')) {
+                // Swipe Left -> Next
+                nextBtn.click();
+            } else if (diff < -threshold && prevBtn && prevBtn.innerText.includes('←')) {
+                // Swipe Right -> Prev
+                prevBtn.click();
+            }
+        }
+    };
+
+    ProgressManager.init();
+    SwipeNavigator.init();
+
+    // --- Phase 2: Engagement ---
+
+    const SanctuaryMode = {
+        init() {
+            const toggle = document.createElement('button');
+            toggle.className = 'sanctuary-toggle';
+            toggle.innerHTML = '✨ সানকচুয়ারি মোড';
+            toggle.title = 'গভীর পাঠের জন্য ইন্টারফেস লুকান';
+            document.body.appendChild(toggle);
+
+            if (localStorage.getItem('sanctuary_mode') === 'active') {
+                this.enable();
+            }
+
+            toggle.addEventListener('click', () => {
+                if (document.body.classList.contains('sanctuary-mode')) {
+                    this.disable();
+                } else {
+                    this.enable();
+                }
+            });
+        },
+
+        enable() {
+            document.body.classList.add('sanctuary-mode');
+            localStorage.setItem('sanctuary_mode', 'active');
+            document.querySelector('.sanctuary-toggle').innerHTML = '👁️ ইন্টারফেস দেখান';
+            if (window.navigator.vibrate) window.navigator.vibrate(10);
+        },
+
+        disable() {
+            document.body.classList.remove('sanctuary-mode');
+            localStorage.setItem('sanctuary_mode', 'inactive');
+            document.querySelector('.sanctuary-toggle').innerHTML = '✨ সানকচুয়ারি মোড';
+        }
+    };
+
+    const QuizEngine = {
+        data: {
+            'parenting-01': {
+                question: 'আপনার সন্তান একটি কাঁচের গ্লাস ভেঙে ফেলেছে এবং ভয় পেয়ে বলছে সে এটা করেনি। একজন "রাখাল" বা অভিভাবক হিসেবে আপনার প্রথম পদক্ষেপ কী হওয়া উচিত?',
+                options: [
+                    { text: 'তাকে ধমক দেওয়া যাতে সে আর মিথ্যা না বলে।', correct: false, feedback: 'ভয় মিথ্যার জন্ম দেয়। ধমক দিলে সে ভবিষ্যতে আরও বড় মিথ্যা বলবে।' },
+                    { text: 'শান্তভাবে বলা: "আমি জানি তুমি ভয় পাচ্ছ, কিন্তু আমি গ্লাসের চেয়ে তোমার সত্যবাদিতাকে বেশি ভালোবাসি।"', correct: true, feedback: 'চমৎকার! সত্যবাদিতাকে নিরাপদ করা হলো সিদক বা সত্যের দুর্গ গড়ার প্রথম ধাপ।' },
+                    { text: 'তাকে বলা যে মিথ্যা বললে আল্লাহ তাকে শাস্তি দেবেন।', correct: false, feedback: 'ভয় দেখিয়ে নয়, আল্লাহর প্রতি ভালোবাসার টানে তাকে সত্য বলতে উৎসাহিত করুন।' }
+                ]
+            }
+        },
+
+        init() {
+            const path = window.location.pathname;
+            let id = "";
+            if (path.includes('chapter-')) id = "parenting-" + path.split('chapter-')[1].split('.html')[0];
+            
+            if (this.data[id]) {
+                this.render(id);
+            }
+        },
+
+        render(id) {
+            const quiz = this.data[id];
+            const footer = document.querySelector('.nav-footer');
+            if (!footer) return;
+
+            const container = document.createElement('div');
+            container.className = 'quiz-container';
+            container.id = 'reflective-quiz';
+            
+            container.innerHTML = `
+                <div class="quiz-header">
+                    <span>🤔 প্রতিফলিত চেকপয়েন্ট</span>
+                </div>
+                <div class="quiz-question">${quiz.question}</div>
+                <div class="quiz-options">
+                    ${quiz.options.map((opt, index) => `
+                        <button class="quiz-option" data-index="${index}">${opt.text}</button>
+                    `).join('')}
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+            `;
+
+            footer.parentNode.insertBefore(container, footer);
+
+            container.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', (e) => this.handleAnswer(e, id));
+            });
+        },
+
+        handleAnswer(e, id) {
+            const index = e.target.dataset.index;
+            const option = this.data[id].options[index];
+            const feedbackEl = document.getElementById('quiz-feedback');
+            
+            // Clear previous states
+            document.querySelectorAll('.quiz-option').forEach(b => {
+                b.classList.remove('correct', 'incorrect');
+                b.disabled = true;
+            });
+
+            if (option.correct) {
+                e.target.classList.add('correct');
+                feedbackEl.style.display = 'block';
+                feedbackEl.style.borderLeftColor = 'var(--accent-green)';
+                feedbackEl.innerHTML = `<strong>চমৎকার!</strong><br>${option.feedback}`;
+                if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
+                
+                // Mark chapter as fully "interactively" complete
+                ProgressManager.save(id + '-quiz');
+            } else {
+                e.target.classList.add('incorrect');
+                feedbackEl.style.display = 'block';
+                feedbackEl.style.borderLeftColor = '#e57373';
+                feedbackEl.innerHTML = `<strong>আবার ভাবুন...</strong><br>${option.feedback}<br><br><button onclick="location.reload()" style="background:none; border:none; color:var(--accent-gold); cursor:pointer; font-weight:700; text-decoration:underline;">আবার চেষ্টা করুন</button>`;
+                if (window.navigator.vibrate) window.navigator.vibrate(200);
+            }
+        }
+    };
+
+    SanctuaryMode.init();
+    QuizEngine.init();
+
+    // --- Phase 3: The Barakah Loop ---
+
+    const HabitTracker = {
+        init() {
+            const sidebar = document.querySelector('.sidebar');
+            if (!sidebar) return;
+
+            let habits = JSON.parse(localStorage.getItem('habit_streaks')) || {};
+            const today = new Date().toISOString().split('T')[0];
+
+            const container = document.createElement('div');
+            container.className = 'habit-tracker-container';
+            container.innerHTML = `
+                <div class="habit-header">
+                    <h4>বারাকাহ ট্র্যাকার</h4>
+                    <span id="streak-count">🔥 ${this.getStreak(habits)}</span>
+                </div>
+                <div class="habit-grid" id="habit-grid"></div>
+            `;
+            sidebar.appendChild(container);
+
+            this.renderGrid(habits);
+        },
+
+        renderGrid(habits) {
+            const grid = document.getElementById('habit-grid');
+            const today = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const dayEl = document.createElement('div');
+                dayEl.className = `habit-day ${habits[dateStr] ? 'active' : ''} ${i === 0 ? 'today' : ''}`;
+                dayEl.innerHTML = date.getDate();
+                dayEl.title = dateStr;
+                
+                if (i === 0) {
+                    dayEl.addEventListener('click', () => this.toggleToday(dateStr));
+                }
+                grid.appendChild(dayEl);
+            }
+        },
+
+        toggleToday(dateStr) {
+            let habits = JSON.parse(localStorage.getItem('habit_streaks')) || {};
+            habits[dateStr] = !habits[dateStr];
+            localStorage.setItem('habit_streaks', JSON.stringify(habits));
+            
+            // Refresh UI
+            document.getElementById('habit-grid').innerHTML = '';
+            this.renderGrid(habits);
+            document.getElementById('streak-count').innerHTML = `🔥 ${this.getStreak(habits)}`;
+            
+            if (habits[dateStr]) {
+                ParticleEffect.burst(window.innerWidth / 2, window.innerHeight / 2);
+                if (window.navigator.vibrate) window.navigator.vibrate([50, 30, 50]);
+            }
+        },
+
+        getStreak(habits) {
+            let streak = 0;
+            let date = new Date();
+            while (true) {
+                const dateStr = date.toISOString().split('T')[0];
+                if (habits[dateStr]) {
+                    streak++;
+                    date.setDate(date.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            return streak;
+        }
+    };
+
+    const ParticleEffect = {
+        burst(x, y) {
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 8 + 4;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200;
+                p.style.setProperty('--x', tx + 'px');
+                p.style.setProperty('--y', ty + 'px');
+                
+                p.style.animation = `particle-fade ${Math.random() * 1 + 0.5}s forwards`;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1500);
+            }
+        }
+    };
+
+    HabitTracker.init();
+
+    // Overriding ProgressManager.showMilestoneBadge to include particles
+    const oldShowBadge = ProgressManager.showMilestoneBadge;
+    ProgressManager.showMilestoneBadge = function(name) {
+        oldShowBadge.call(this, name);
+        ParticleEffect.burst(window.innerWidth / 2, window.innerHeight / 2);
+    };
+
+    // --- End Phase 3 ---
+
     // 0. Save Language Preference
     localStorage.setItem('preferredLang', 'bn');
 
